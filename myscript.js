@@ -22,12 +22,18 @@ function playRound(playerSelection, computerSelection) {
 
 }
 
+
 function game(games = 5) {
-    let pc_wins = 0, player_wins = 0, ties = 0;
+    var pc_wins = 0, player_wins = 0, ties = 0;
     for (let i = 0; i < games; i++) {
 
+        let pc_choice = computerPlay();
+        let player_choice = promptPlayer();
 
-        let str1 = playRound(promptPlayer(), computerPlay())
+        console.log(`The computer played ${pc_choice} and you played ${player_choice}.`)
+
+        let str1 = playRound(player_choice, pc_choice);
+
         if (str1 == "A tie... Was that your best?")
             ties++;
         else if (str1 == "Haha! You lost.")
@@ -35,5 +41,5 @@ function game(games = 5) {
         else if (str1 == "You think you're smart huh?!")
             player_wins++;
     }
-    return pc_wins > player_wins ? "The computer won, of course." : pc_wins == player_wins ? "You did better than expected." : "No one will believe you..."
+    return (pc_wins > player_wins ? `Wow ${pc_wins}x${player_wins}. The computer won, of course.` : pc_wins === player_wins ? `A tie: ${pc_wins}x${player_wins}. You did better than expected.` : `Y-You won?! ${pc_wins}x${player_wins}. No one will believe you...`)
 }
