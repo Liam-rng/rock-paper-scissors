@@ -1,12 +1,6 @@
 function computerPlay() {
     let random_number = Math.floor(Math.random() * 3) + 1;
-    return (random_number === 3 ? "PAPER" : random_number === 2 ? "ROCK" : "SCISSORS");
-}
-
-function promptPlayer() {
-    var choice = window.prompt("Howdy! Are you down for a friendly game of Rock, Paper, Scissors? \nType in your choice:")
-    let str1 = choice.toString();
-    return str1.toUpperCase();
+    return (random_number === 3 ? `PAPER` : random_number === 2 ? `ROCK` : `SCISSORS`);
 }
 let ties = 0, wins = 0, losses = 0;
 function playRound(human_sel, pc_sel) {
@@ -14,7 +8,7 @@ function playRound(human_sel, pc_sel) {
         ties++;
         return (`You both selected ${pc_sel}. A tie, well done.`);
     }
-    else if (pc_sel == "PAPER" && human_sel == "ROCK" || pc_sel == "ROCK" && human_sel == "SCISSORS" || pc_sel == "SCISSORS" && human_sel == "PAPER"){
+    else if (pc_sel == `PAPER` && human_sel == `ROCK` || pc_sel == `ROCK` && human_sel == `SCISSORS` || pc_sel == `SCISSORS` && human_sel == `PAPER`){
         wins++; 
         return (`You chose ${human_sel} and the computer chose ${pc_sel}. Haha! Gotcha!`);
 }
@@ -24,33 +18,35 @@ function playRound(human_sel, pc_sel) {
     }
 }
 
-// function game(games = 5) {
-//     var pc_wins = 0, player_wins = 0, ties = 0;
-//     for (let i = 0; i < games; i++) {
+  const result_div = document.createElement(`div`);
+  result_div.classList.add(`results`);
+  result_div.textContent = `The results will be displayed here`;
+  result_div.style.background = `gray`;
 
-//         let pc_choice = computerPlay();
-//         let player_choice = promptPlayer();
+  const ul_div = document.createElement(`div`);
+  const ul = document.createElement(`ul`);
+  const w_counter = document.createElement(`li`);
+  const t_counter = document.createElement(`li`);
+  const l_counter = document.createElement(`li`);
 
-//         console.log(`The computer played ${pc_choice} and you played ${player_choice}.`)
+  w_counter.textContent = `Wins: ${wins}`;
+  t_counter.textContent = `Ties: ${ties}`;
+  l_counter.textContent = `Losses: ${losses}`;
+  ul.classList.add(`points`);
+  ul.append(w_counter,l_counter,t_counter);
+  ul_div.appendChild(ul);
 
-//         let str1 = playRound(player_choice, pc_choice);
-
-//         if (str1 == "A tie, well done.")
-//             ties++;
-//         else if (str1 == "Haha! Gotcha!")
-//             pc_wins++;
-//         else if (str1 == "What a tryhard.")
-//             player_wins++;
-//     }
-//     return (pc_wins > player_wins ? `Wow ${pc_wins}x${player_wins}. The computer won, of course.` : pc_wins === player_wins ? `A tie: ${pc_wins}x${player_wins}. You did better than expected.` : `Y-You won?! ${pc_wins}x${player_wins}. No one will believe you...`)
-// }
-
-const buttons = document.querySelectorAll('button');
+  const buttons = document.querySelectorAll(`button`);
 buttons.forEach((button) => {
-    button.addEventListener('click', () => {
+    button.addEventListener(`click`, () => {
         let player_choice = button.id.toUpperCase();
         let pc_choice = computerPlay();
-        console.log(playRound(player_choice, pc_choice))
-        console.log(wins,ties,losses);
+        result_div.textContent = (playRound(player_choice, pc_choice));
+        w_counter.textContent = `Wins: ${wins}`;
+        t_counter.textContent = `Ties: ${ties}`;
+        l_counter.textContent = `Losses: ${losses}`;
     });
   });
+
+  document.body.appendChild(result_div);
+  document.body.appendChild(ul_div);
