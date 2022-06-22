@@ -21,13 +21,9 @@ function playRound(human_sel, pc_sel) {
     }
 }
 
-  const result_div = document.createElement(`div`);
-  result_div.classList.add(`results`);
-  result_div.textContent = `The results will be displayed here`;
-  result_div.style.background = `gray`;
+  const result_div = document.querySelector(`.results`);
 
-  const ul_div = document.createElement(`div`);
-  const ul = document.createElement(`ul`);
+  const ul = document.querySelector(`ul`);
   const w_counter = document.createElement(`li`);
   const t_counter = document.createElement(`li`);
   const l_counter = document.createElement(`li`);
@@ -35,13 +31,9 @@ function playRound(human_sel, pc_sel) {
   w_counter.textContent = `Wins: ${wins}`;
   t_counter.textContent = `Ties: ${ties}`;
   l_counter.textContent = `Losses: ${losses}`;
-  ul.classList.add(`points`);
   ul.append(w_counter,l_counter,t_counter);
-  ul_div.appendChild(ul);
 
-  const refresh = document.createElement(`button`);
-  refresh.textContent = `Restart game`;
-  refresh.classList.add(`refresh`);
+  const refresh = document.querySelector(`.refresh_button`);
   refresh.addEventListener(`click`, () => {
     window.location.reload();
   });
@@ -72,7 +64,3 @@ function playRound(human_sel, pc_sel) {
     }
     });
   });
-
-  document.body.appendChild(result_div);
-  document.body.appendChild(ul_div);
-  document.body.appendChild(refresh);
